@@ -1,7 +1,7 @@
 
 server {
      listen 80;
-     server_name localhost;
+     server_name ${NGINX_SERVER_NAME};
      location /webpack {
          proxy_pass http://${RAZZLE_CONTAINER_HOST}:${WEBPACK_PORT}/;
          proxy_http_version 1.1;

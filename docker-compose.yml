@@ -5,13 +5,14 @@ services:
     image: nginx:alpine
     ports:
      - "80:80"
-    command: /bin/sh -c "envsubst '$${RAZZLE_CONTAINER_HOST},$${WEBPACK_PORT},$${EXPRESS_PORT}' < /etc/nginx/conf.d/nginx.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+    command: /bin/sh -c "envsubst '$${NGINX_SERVER_NAME},$${RAZZLE_CONTAINER_HOST},$${WEBPACK_PORT},$${EXPRESS_PORT}' < /etc/nginx/conf.d/nginx.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
     volumes:
       - ./nginx.template:/etc/nginx/conf.d/nginx.template
     environment:
       RAZZLE_CONTAINER_HOST: ${RAZZLE_CONTAINER_HOST:-razzle}
       EXPRESS_PORT: ${EXPRESS_PORT:-3000}
       WEBPACK_PORT: ${WEBPACK_PORT:-3001}
+      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-localhost}
 
   razzle:
     build:

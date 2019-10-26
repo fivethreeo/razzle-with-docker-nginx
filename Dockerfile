@@ -4,9 +4,8 @@ RUN mkdir /code
 WORKDIR /code
 
 ARG PUBLIC_PATH=https://localhost/
-ARG CLIENT_PUBLIC_PATH=https://localhost/
 
-ENV PUBLIC_PATH=${PUBLIC_PATH} CLIENT_PUBLIC_PATH=${PUBLIC_PATH}
+ENV PUBLIC_PATH=${PUBLIC_PATH}
 
 # Copying requirements
 COPY package.json package.json
