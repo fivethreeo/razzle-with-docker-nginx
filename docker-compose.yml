@@ -28,7 +28,7 @@ services:
       - ./razzle.config.js:/code/razzle.config.js
     environment:
       PORT: ${EXPRESS_PORT:-3000}
-      PUBLIC_PATH: ${RAZZLE_PUBLIC_SHEME:-http://}://${RAZZLE_PUBLIC_HOST:-localhost}/webpack/
-      CLIENT_PUBLIC_PATH: ${RAZZLE_PUBLIC_SHEME:-http://}${RAZZLE_PUBLIC_HOST:-localhost}/webpack/
+      PUBLIC_PATH: ${RAZZLE_PUBLIC_SCHEME:-http}://${RAZZLE_PUBLIC_HOST:-localhost}/webpack/
+      CLIENT_PUBLIC_PATH: ${RAZZLE_PUBLIC_SCHEME:-http}://${RAZZLE_PUBLIC_HOST:-localhost}/webpack/
       RAZZLE_PUBLIC_HOST: ${RAZZLE_PUBLIC_HOST:-localhost}
       RAZZLE_PUBLIC_PORT: ${RAZZLE_PUBLIC_PORT:-80}
