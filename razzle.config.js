@@ -38,7 +38,6 @@ module.exports = {
         } 
         return rules;
       }, []);
-      console.log(config.module.rules[2])
     }
     return config;
   }
