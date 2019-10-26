@@ -12,7 +12,7 @@ services:
       RAZZLE_CONTAINER_HOST: ${RAZZLE_CONTAINER_HOST:-razzle}
       EXPRESS_PORT: ${EXPRESS_PORT:-3000}
       WEBPACK_PORT: ${WEBPACK_PORT:-3001}
-      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-localhost}
+      NGINX_SERVER_NAME: ${RAZZLE_PUBLIC_HOST:-localhost}
 
   razzle:
     build:
@@ -21,8 +21,8 @@ services:
       dockerfile: Dockerfile
     image: razzleapp:latest
     expose:
-      - "3000"
-      - "3001"
+      - ${EXPRESS_PORT:-3000}
+      - ${WEBPACK_PORT:-3001}
     volumes:
       - ./src:/code/src
       - ./public:/code/public
