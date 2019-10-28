@@ -6905,6 +6905,11 @@ razzle-dev-utils@^3.0.0:
     sockjs-client "1.3.0"
     strip-ansi "5.0.0"
 
+razzle-plugin-wasm@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/razzle-plugin-wasm/-/razzle-plugin-wasm-1.0.1.tgz#dde114bae00f93f217f6a29d035764801143db95"
+  integrity sha512-1bkS+voVCFGGJxBxrq2D/S0brD0cSVZYQcfDxG3j/yL6QG8tTo0yPct+Y7cS3LOa4i/Iw2VdU+BSju915DgrfQ==
+
 razzle@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/razzle/-/razzle-3.0.0.tgz#317954313b63313c13c7015e2ab9de48077b9a98"

@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "razzle": "^3.0.0",
+    "razzle-plugin-wasm": "^1.0.1",
     "string-replace-loader": "^2.2.0"
   }
 }
