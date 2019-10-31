@@ -21,3 +21,8 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
       DEFAULT_EMAIL: ${LETSENCRYPT_DEFAULT_EMAIL}
+
+#export CERTS_VOLUME=nginx_certs
+#export VHOST_D_VOLUME=nginx_vhost_d
+#export HTML_VOLUME=nginx_html
+#export LETSENCRYPT_DEFAULT_EMAIL=email@example.com
