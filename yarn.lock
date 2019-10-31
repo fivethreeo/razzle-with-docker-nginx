@@ -6905,10 +6905,10 @@ razzle-dev-utils@^3.0.0:
     sockjs-client "1.3.0"
     strip-ansi "5.0.0"
 
-razzle-plugin-proxy@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/razzle-plugin-proxy/-/razzle-plugin-proxy-1.1.4.tgz#7377c323ea9130509f8f696a1cb202b2ba387a7e"
-  integrity sha512-ECzieABBOFMO85X9vaNaKGgcwess5DUB0WrbC34wQFxUwkXnDbna7hgc8Bz0GO0fX53T3RYSpLsyMZZRGAifSA==
+razzle-plugin-proxy@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/razzle-plugin-proxy/-/razzle-plugin-proxy-1.1.5.tgz#5de6d38b391356ddd281fd52889c291574b66cf7"
+  integrity sha512-jdyNIanoRE1EVR6HBZ9PZJ7+udBHd3DmRvWVmP/kZitmhRd7nzTRaYhlFkevRJCatGBtwuD4JI/kisTUKlBm1g==
   dependencies:
     string-replace-loader "^2.2.0"
 

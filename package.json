@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "razzle": "^3.0.0",
-    "razzle-plugin-proxy": "^1.1.4",
+    "razzle-plugin-proxy": "^1.1.5",
     "razzle-plugin-wasm": "^1.3.5",
     "razzle-plugin-worker": "^1.0.3"
   }
