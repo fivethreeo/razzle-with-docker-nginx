@@ -20,4 +20,4 @@ services:
       - ${HTML_VOLUME}:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
-      DEFAULT_EMAIL: ${DEFAULT_EMAIL}
+      DEFAULT_EMAIL: ${LETSENCRYPT_DEFAULT_EMAIL}
