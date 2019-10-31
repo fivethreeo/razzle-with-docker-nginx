@@ -7,20 +7,31 @@ services:
      - "80:80"
      - "443:443"
     volumes:
-      - ${CERTS_VOLUME}:/etc/nginx/certs:ro
-      - ${VHOST_D_VOLUME}:/etc/nginx/vhost.d
-      - ${HTML_VOLUME}:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - vhost_d:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
     volumes:
-      - ${CERTS_VOLUME}:/etc/nginx/certs
-      - ${VHOST_D_VOLUME}:/etc/nginx/vhost.d
-      - ${HTML_VOLUME}:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - vhost_d:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
       DEFAULT_EMAIL: ${LETSENCRYPT_DEFAULT_EMAIL}
+
+volumes:
+  certs:
+    external:
+      name: ${CERTS_VOLUME}
+  vhost_d:
+    external:
+      name: ${VHOST_D_VOLUME}
+  html:
+    external:
+      name: ${HTML_VOLUME}
 
 #export CERTS_VOLUME=nginx_certs
 #export VHOST_D_VOLUME=nginx_vhost_d
