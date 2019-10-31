@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   nginx-proxy:
-    image: nginx-proxy
+    image: jwilder/nginx-proxy
     ports:
      - "80:80"
      - "443:443"
@@ -13,9 +13,9 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   nginx-proxy-letsencrypt:
-    image: nginx-proxy-letsencrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion
     volumes:
-      - ${CERTS_VOLUME}:/etc/nginx/certs:ro
+      - ${CERTS_VOLUME}:/etc/nginx/certs
       - ${VHOST_D_VOLUME}:/etc/nginx/vhost.d
       - ${HTML_VOLUME}:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
