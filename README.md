@@ -58,6 +58,7 @@ export PUBLIC_SCHEME=https
 
 export BACKEND=other.ip:80
 
+
 export CERTS_VOLUME=nginx_certs
 export VHOST_D_VOLUME=nginx_vhost_d
 export HTML_VOLUME=nginx_html
@@ -81,6 +82,7 @@ export DOCKER_BUILDKIT=1
 export LETSENCRYPT_DEFAULT_EMAIL=email@example.com
 export VIRTUAL_HOST=example.com
 export PUBLIC_SCHEME=https
+
 
 export CERTS_VOLUME=nginx_certs
 export VHOST_D_VOLUME=nginx_vhost_d
