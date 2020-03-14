@@ -2,7 +2,6 @@ version: "3.7"
 
 services:
   nginx:
-    restart: always
     build:
       target: nginx_development
       context: .
@@ -21,7 +20,6 @@ services:
       - docker_default
 
   razzle:
-    restart: always
     build:
       target: razzle_development
       context: .

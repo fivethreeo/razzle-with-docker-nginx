@@ -37,8 +37,8 @@ docker volume create ${CERTS_VOLUME}
 docker volume create ${VHOST_D_VOLUME}
 docker volume create ${HTML_VOLUME}
 
-sudo -E docker-compose -f docker-compose.proxy.yml up
-sudo -E docker-compose -f docker-compose.dev.yml up --build
+sudo -E docker-compose -f docker-compose.proxy.yml up -d
+sudo -E docker-compose -f docker-compose.dev.yml up --build -d
 ```
 
 
@@ -48,7 +48,7 @@ sudo -E docker-compose -f docker-compose.dev.yml up --build
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 
-sudo -E docker-compose -f docker-compose.dev.expose.yml up --build
+sudo -E docker-compose -f docker-compose.dev.expose.yml up --build -d
 
 On other computer
 
@@ -66,7 +66,7 @@ docker volume create ${CERTS_VOLUME}
 docker volume create ${VHOST_D_VOLUME}
 docker volume create ${HTML_VOLUME}
 
-sudo -E docker-compose -f docker-compose.proxy.yml up
+sudo -E docker-compose -f docker-compose.proxy.yml up -d
 sudo -E docker-compose -f docker-compose.forward.yml up
 
 ```
@@ -90,8 +90,8 @@ docker volume create ${CERTS_VOLUME}
 docker volume create ${VHOST_D_VOLUME}
 docker volume create ${HTML_VOLUME}
 
-sudo -E docker-compose -f docker-compose.proxy.yml up
-sudo -E docker-compose -f docker-compose.yml up --build
+sudo -E docker-compose -f docker-compose.proxy.yml up -d
+sudo -E docker-compose -f docker-compose.yml up --build -d
 ```
 
 ## Idea behind the example
