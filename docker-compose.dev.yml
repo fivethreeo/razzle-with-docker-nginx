@@ -1,11 +1,10 @@
 version: "3.7"
 
 services:
-
   nginx:
     restart: always
     build:
-      target: nginx_production
+      target: nginx_development
       context: .
       dockerfile: Dockerfile
 
@@ -22,7 +21,7 @@ services:
   razzle:
     restart: always
     build:
-      target: razzle_production
+      target: razzle_development
       context: .
       dockerfile: Dockerfile
 
@@ -30,9 +29,17 @@ services:
       PUBLIC_HOST: ${VIRTUAL_HOST:?Host required}
       PUBLIC_PORT: ${PUBLIC_PORT:-}
       PUBLIC_SCHEME: ${PUBLIC_SCHEME:-https}
+      RAZZLE_DEV: "true"
 
     networks:
       - docker_default
+
+    volumes:
+      - ./razzle/src:/code/src
+      - ./razzle/public:/code/public
+      - ./razzle/razzle.config.js:/code/razzle.config.js
+      # - ./razzle/.babelrc:/code/.babelrc
+      # - ./razzle/.eslintrc.js:/code/.eslintrc.js
 
 networks:
   docker_default:

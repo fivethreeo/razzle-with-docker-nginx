@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  socat:
+    image: alpine/socat
+    command: tcp-listen:1234,fork,reuseaddr tcp-connect:${BACKEND:-192.168.1.5:80}
+    ports:
+     - "4321:1234"
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST}

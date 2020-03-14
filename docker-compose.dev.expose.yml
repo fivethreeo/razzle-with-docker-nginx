@@ -1,0 +1,49 @@
+version: "3.7"
+
+services:
+  nginx:
+    restart: always
+    build:
+      target: nginx_development
+      context: .
+      dockerfile: Dockerfile
+
+    depends_on:
+      - razzle
+
+    ports:
+    - "80:80"
+
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-localhost}
+
+    networks:
+      - docker_default
+
+  razzle:
+    restart: always
+    build:
+      target: razzle_development
+      context: .
+      dockerfile: Dockerfile
+
+    environment:
+      PUBLIC_HOST: ${VIRTUAL_HOST:-localhost}
+      PUBLIC_SCHEME: ${PUBLIC_SCHEME:-http}
+      PUBLIC_PORT: ${PUBLIC_PORT:-}
+      RAZZLE_DEV: "true"
+
+    networks:
+      - docker_default
+
+    volumes:
+      - ./razzle/src:/code/src
+      - ./razzle/public:/code/public
+      - ./razzle/razzle.config.js:/code/razzle.config.js
+      # - ./razzle/.babelrc:/code/.babelrc
+      # - ./razzle/.eslintrc.js:/code/.eslintrc.js
+
+networks:
+  docker_default:
+    external: true
+    name: docker_default

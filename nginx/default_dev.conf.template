@@ -1,0 +1,57 @@
+upstream react {
+    server ${UPSTREAM_HOST}:3000;
+    keepalive 20;
+}
+
+upstream reactstatic {
+    server ${UPSTREAM_HOST}:3001;
+    keepalive 20;
+}
+
+server {
+    listen       80  default_server;
+    server_name  _;
+
+    #charset koi8-r;
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    root   /usr/share/nginx/html;
+
+
+    location /webpack/ {
+      proxy_pass http://reactstatic;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection 'upgrade';
+      proxy_set_header Host $host;
+      proxy_cache_bypass $http_upgrade;
+    }
+
+    location /webpack/static/ {
+      proxy_pass http://reactstatic/static/;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection 'upgrade';
+      proxy_set_header Host $host;
+      proxy_cache_bypass $http_upgrade;
+    }
+
+    location / {
+      proxy_pass   http://react;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection 'upgrade';
+      proxy_set_header Host $host;
+      proxy_cache_bypass $http_upgrade;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+}

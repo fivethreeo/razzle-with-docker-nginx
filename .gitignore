@@ -4,7 +4,7 @@ npm-debug.log*
 .DS_Store
 
 coverage
-node_modules
-build
-public/static
+razzle/node_modules
+razzle/build
+razzle/public/static
 .env.*.local

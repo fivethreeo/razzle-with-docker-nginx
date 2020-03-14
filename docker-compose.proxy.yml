@@ -1,3 +1,4 @@
+version: "3.7"
 
 services:
   nginx-proxy:
@@ -12,7 +13,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-      
+
 
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -23,7 +24,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       DEFAULT_EMAIL: ${LETSENCRYPT_DEFAULT_EMAIL}
-      
+
 volumes:
   certs:
     external:
@@ -34,8 +35,3 @@ volumes:
   html:
     external:
       name: ${HTML_VOLUME}
-
-#export CERTS_VOLUME=nginx_certs
-#export VHOST_D_VOLUME=nginx_vhost_d
-#export HTML_VOLUME=nginx_html
-#export LETSENCRYPT_DEFAULT_EMAIL=email@example.com

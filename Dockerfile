@@ -1,4 +1,5 @@
-FROM node:8-alpine as base
+
+FROM node:12-alpine as razzle_base
 # Creating working directory
 RUN mkdir /code
 WORKDIR /code
@@ -7,9 +8,11 @@ ARG PUBLIC_PATH=https://localhost/
 
 ENV PUBLIC_PATH=${PUBLIC_PATH}
 
+COPY razzle/razzle_entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
 # Copying requirements
-COPY package.json package.json
-COPY yarn.lock yarn.lock
+COPY razzle/package.json package.json
+COPY razzle/yarn.lock yarn.lock
 
 RUN apk add --no-cache --virtual .build-deps \
     musl-dev git \
@@ -27,18 +30,29 @@ RUN apk add --no-cache --virtual .build-deps \
     && apk add --virtual .rundeps $runDeps \
     && apk del .build-deps
 
-FROM base as dev
+RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+FROM razzle_base as razzle_development
+
+ENV RAZZLE_ENV=development
 
 RUN rm -rf node_modules_run && rm yarn_run.lock
 
-# Start server 
+EXPOSE 3000
+EXPOSE 3001
+
+# Start server
 CMD ["yarn", "start"]
 
-FROM base as prod
+FROM razzle_base as razzle_production
 
-COPY src src/
-COPY public public/
-COPY razzle.config.js razzle.config.js
+ENV RAZZLE_ENV=production
+
+COPY razzle/src src/
+COPY razzle/public public/
+COPY razzle/razzle.config.js razzle.config.js
 
 RUN yarn build \
     && rm -rf node_modules \
@@ -47,5 +61,37 @@ RUN yarn build \
     && mv yarn_run.lock yarn.lock \
     && rm -rf src public razzle.config.js
 
-# Start server 
+EXPOSE 3000
+
+# Start server
 CMD ["yarn", "start:prod"]
+
+FROM nginx:stable-alpine as nginx_development
+
+ENV UPSTREAM_HOST=razzle
+
+COPY nginx/nginx_entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+COPY nginx/default_dev.conf.template /etc/nginx/conf.d/default.template
+
+RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
+
+EXPOSE 80
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+FROM nginx:stable-alpine as nginx_production
+
+ENV UPSTREAM_HOST=razzle
+
+COPY nginx/nginx_entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+COPY nginx/default.conf.template /etc/nginx/conf.d/default.template
+
+COPY --from=razzle_production /code/build/public/ /usr/share/nginx/html/
+
+RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
+
+EXPOSE 80
+
+ENTRYPOINT ["docker-entrypoint.sh"]
