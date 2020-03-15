@@ -11,7 +11,7 @@ cd razzle-with-docker-nginx-master
 sudo curl -L https://github.com/docker/compose/releases/download/1.25.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
-## In dev files in `razzle/src/` will rebuild and reload in the browser
+In dev files in `razzle/src/` will rebuild and reload in the browser
 
 ## To run locally in dev with http on localhost:
 
