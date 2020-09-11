@@ -39,7 +39,7 @@ certutil -d sql:$(dirname $(find  ~/.mozilla* -name "cert9.db")) -A -t "TCu,Cuw,
 -i ssl/certs/localhost.selfsigned.crt
 ```
 
-## To run locally in dev with https on dev.example.com:
+## To run in dev with https on dev.example.com using letsencrypt:
 
 ```bash
 export COMPOSE_DOCKER_CLI_BUILD=1
@@ -58,7 +58,7 @@ sudo -E docker-compose -f docker-compose.proxy.yml up -d
 sudo -E docker-compose -f docker-compose.dev.yml up --build -d
 ```
 
-## In production with https on example.com:
+## In production with https on example.com using letsencrypt:
 
 ```bash
 export COMPOSE_DOCKER_CLI_BUILD=1
