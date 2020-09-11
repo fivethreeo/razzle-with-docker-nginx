@@ -10,6 +10,9 @@ cd razzle-with-docker-nginx-master
 # Ensure BUILDKIT support
 sudo curl -L https://github.com/docker/compose/releases/download/1.27.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
+
+# Install certutil
+sudo apt-get install libnss3-tools
 ```
 In dev files in `razzle/src/` will rebuild and reload in the browser
 
@@ -21,12 +24,19 @@ export DOCKER_BUILDKIT=1
 
 export SSL_VOLUME=nginx_ssl
 export NGINX_VOLUME=nginx_conf
+export SSL_VOLUME_PATH=$(pwd)/ssl
 
 sudo -E docker volume create ${SSL_VOLUME}
 sudo -E docker volume create ${NGINX_VOLUME}
 
 sudo -E docker-compose -f docker-compose.proxy.yml up -d
 sudo -E docker-compose -f docker-compose.dev.yml up --build -d
+
+certutil -d sql:$HOME/.pki/nssdb -A -t "TCu,Cuw,Tuw" -n localhost \
+-i ssl/certs/localhost.selfsigned.crt
+
+certutil -d sql:$(dirname $(find  ~/.mozilla* -name "cert9.db")) -A -t "TCu,Cuw,Tuw" -n localhost \
+-i ssl/certs/localhost.selfsigned.crt
 ```
 
 ## To run locally in dev with https on dev.example.com, with nginx-proxy on other computer:

@@ -8,7 +8,7 @@ services:
      - "80:80"
      - "443:443"
     volumes:
-      - ssl:/etc/ssl
+      - ${SSL_VOLUME_PATH:-ssl}:/etc/ssl
       - nginx:/etc/nginx
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
