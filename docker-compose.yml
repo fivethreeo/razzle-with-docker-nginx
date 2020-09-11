@@ -2,23 +2,6 @@ version: "3.7"
 
 services:
 
-  nginx:
-    restart: always
-    build:
-      target: nginx_production
-      context: .
-      dockerfile: Dockerfile
-
-    depends_on:
-      - razzle
-
-    environment:
-      VIRTUAL_HOST: ${VIRTUAL_HOST:?Host required}
-      LETSENCRYPT_HOST: ${VIRTUAL_HOST:?Host required}
-
-    networks:
-      - docker_default
-
   razzle:
     restart: always
     build:
@@ -28,13 +11,5 @@ services:
 
     environment:
       PUBLIC_HOST: ${VIRTUAL_HOST:?Host required}
-      PUBLIC_PORT: ${PUBLIC_PORT:-}
-      PUBLIC_SCHEME: ${PUBLIC_SCHEME:-https}
-
-    networks:
-      - docker_default
-
-networks:
-  docker_default:
-    external: true
-    name: docker_default
+      PUBLIC_SCHEME: https
+      VIRTUAL_HOST: https://${VIRTUAL_HOST:?Host required} -> :3000

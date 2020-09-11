@@ -1,13 +1,18 @@
 'use strict';
 
-module.exports = {
-  modify: (defaultConfig, { target, dev }, webpack) => {
-    const config = defaultConfig;
 
-    if (target === 'web' && dev) {
+module.exports = {
+  modifyWebpackConfig(opts) {
+    const config = opts.webpackConfig;
+
+    if (opts.env.target === 'web' && opts.env.dev) {
       config.devServer.quiet = false;
+      config.devServer.proxy = {
+        context: () => true,
+        target: 'http://localhost:3000'
+      };
     }
+
     return config;
   },
-  plugins: [ 'proxy' ]
 };

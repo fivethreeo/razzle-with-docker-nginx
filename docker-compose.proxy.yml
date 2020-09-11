@@ -2,36 +2,20 @@ version: "3.7"
 
 services:
   nginx-proxy:
-    image: jwilder/nginx-proxy
+    restart: always
+    image: mesudip/nginx-proxy
     ports:
      - "80:80"
      - "443:443"
     volumes:
-      - certs:/etc/nginx/certs:ro
-      - vhost_d:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    labels:
-      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-
-
-  nginx-proxy-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes:
-      - certs:/etc/nginx/certs
-      - vhost_d:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
+      - ssl:/etc/ssl
+      - nginx:/etc/nginx
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      DEFAULT_EMAIL: ${LETSENCRYPT_DEFAULT_EMAIL}
 
 volumes:
-  certs:
+  ssl:
     external:
-      name: ${CERTS_VOLUME}
-  vhost_d:
+      name: ${SSL_VOLUME}
+  nginx:
     external:
-      name: ${VHOST_D_VOLUME}
-  html:
-    external:
-      name: ${HTML_VOLUME}
+      name: ${NGINX_VOLUME}

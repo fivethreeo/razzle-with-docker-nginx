@@ -40,7 +40,6 @@ ENV RAZZLE_ENV=development
 
 RUN rm -rf node_modules_run && rm yarn_run.lock
 
-EXPOSE 3000
 EXPOSE 3001
 
 # Start server
@@ -92,6 +91,6 @@ COPY --from=razzle_production /code/build/public/ /usr/share/nginx/html/
 
 RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
 
-EXPOSE 80
+EXPOSE 3000
 
 ENTRYPOINT ["docker-entrypoint.sh"]

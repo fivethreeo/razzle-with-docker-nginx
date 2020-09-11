@@ -1,21 +1,6 @@
 version: "3.7"
 
 services:
-  nginx:
-    build:
-      target: nginx_development
-      context: .
-      dockerfile: Dockerfile
-
-    depends_on:
-      - razzle
-
-    environment:
-      VIRTUAL_HOST: ${VIRTUAL_HOST:?Host required}
-      LETSENCRYPT_HOST: ${VIRTUAL_HOST:?Host required}
-
-    networks:
-      - docker_default
 
   razzle:
     build:
@@ -24,13 +9,13 @@ services:
       dockerfile: Dockerfile
 
     environment:
-      PUBLIC_HOST: ${VIRTUAL_HOST:?Host required}
+      PUBLIC_HOST: ${VIRTUAL_HOST:-localhost}
       PUBLIC_PORT: ${PUBLIC_PORT:-}
       PUBLIC_SCHEME: ${PUBLIC_SCHEME:-https}
       RAZZLE_DEV: "true"
+      VIRTUAL_HOST1: ${PUBLIC_SCHEME:-https}://${VIRTUAL_HOST:-localhost}:${PUBLIC_PORT:-443} -> :3001
+      VIRTUAL_HOST2: ${PUBLIC_SCHEME:-wss}://${VIRTUAL_HOST:-localhost}:${PUBLIC_PORT:-443} -> :3001
 
-    networks:
-      - docker_default
 
     volumes:
       - ./razzle/src:/code/src
@@ -38,8 +23,3 @@ services:
       - ./razzle/razzle.config.js:/code/razzle.config.js
       # - ./razzle/.babelrc:/code/.babelrc
       # - ./razzle/.eslintrc.js:/code/.eslintrc.js
-
-networks:
-  docker_default:
-    external: true
-    name: docker_default
