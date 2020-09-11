@@ -55,14 +55,12 @@ sudo -E docker volume create ${SSL_VOLUME}
 sudo -E docker volume create ${NGINX_VOLUME}
 
 sudo -E docker-compose -f docker-compose.proxy.yml up -d
-sudo -E docker-compose -f docker-compose.forward.yml up
-
+sudo -E docker-compose -f docker-compose.dev.yml up --build -d
 ```
 
 ## In production with https on example.com:
 
 ```bash
-
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 
