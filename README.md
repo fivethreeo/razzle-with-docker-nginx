@@ -13,15 +13,11 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 In dev files in `razzle/src/` will rebuild and reload in the browser
 
-## To run locally in dev with https on dev.example.com:
+## To run locally in dev with https on localhost:
 
 ```bash
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
-
-export LETSENCRYPT_DEFAULT_EMAIL=email@example.com
-export VIRTUAL_HOST=dev.example.com
-export PUBLIC_SCHEME=https
 
 export SSL_VOLUME=nginx_ssl
 export NGINX_VOLUME=nginx_conf
