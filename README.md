@@ -39,21 +39,14 @@ certutil -d sql:$(dirname $(find  ~/.mozilla* -name "cert9.db")) -A -t "TCu,Cuw,
 -i ssl/certs/localhost.selfsigned.crt
 ```
 
-## To run locally in dev with https on dev.example.com, with nginx-proxy on other computer:
+## To run locally in dev with https on dev.example.com:
 
 ```bash
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 
-sudo -E docker-compose -f docker-compose.dev.expose.yml up --build -d
-
-On other computer
-
 export LETSENCRYPT_DEFAULT_EMAIL=email@example.com
 export VIRTUAL_HOST=dev.example.com
-export PUBLIC_SCHEME=https
-
-export BACKEND=other.ip:80
 
 export SSL_VOLUME=nginx_ssl
 export NGINX_VOLUME=nginx_conf
@@ -75,7 +68,6 @@ export DOCKER_BUILDKIT=1
 
 export LETSENCRYPT_DEFAULT_EMAIL=email@example.com
 export VIRTUAL_HOST=example.com
-export PUBLIC_SCHEME=https
 
 export SSL_VOLUME=nginx_ssl
 export NGINX_VOLUME=nginx_conf
