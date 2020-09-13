@@ -7,4 +7,7 @@ coverage
 razzle/node_modules
 razzle/build
 razzle/public/static
-.env.*.local
+certs/*.pem
+certs/*.crt
+certs/*.srl
+certs/*.key

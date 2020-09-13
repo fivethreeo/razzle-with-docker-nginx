@@ -2,6 +2,18 @@ version: "3.7"
 
 services:
 
+  nginx:
+    build:
+      target: nginx_development
+      context: .
+      dockerfile: Dockerfile
+
+    depends_on:
+      - razzle
+
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-localhost}
+
   razzle:
     build:
       target: razzle_development
@@ -13,9 +25,6 @@ services:
       PUBLIC_PORT: ${PUBLIC_PORT:-}
       PUBLIC_SCHEME: ${PUBLIC_SCHEME:-https}
       RAZZLE_DEV: "true"
-      VIRTUAL_HOST1: ${PUBLIC_SCHEME:-https}://${VIRTUAL_HOST:-localhost}:${PUBLIC_PORT:-443} -> :3001
-      VIRTUAL_HOST2: ${PUBLIC_SCHEME:-wss}://${VIRTUAL_HOST:-localhost}:${PUBLIC_PORT:-443} -> :3001
-
 
     volumes:
       - ./razzle/src:/code/src

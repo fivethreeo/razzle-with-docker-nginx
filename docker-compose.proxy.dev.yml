@@ -14,17 +14,6 @@ services:
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
 
-  nginx-proxy-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes:
-      - ${CERTS_VOLUME_PATH:-certs}:/etc/nginx/certs
-      - vhost_d:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      DEFAULT_EMAIL: ${LETSENCRYPT_DEFAULT_EMAIL}
-      NGINX_PROXY_CONTAINER: nginx-proxy
-
 volumes:
   certs:
     external:

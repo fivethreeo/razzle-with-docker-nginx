@@ -2,6 +2,19 @@ version: "3.7"
 
 services:
 
+  nginx:
+    restart: always
+    build:
+      target: nginx_production
+      context: .
+      dockerfile: Dockerfile
+
+    depends_on:
+      - razzle
+
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST:?Host required}
+
   razzle:
     restart: always
     build:
@@ -12,4 +25,3 @@ services:
     environment:
       PUBLIC_HOST: ${VIRTUAL_HOST:?Host required}
       PUBLIC_SCHEME: https
-      VIRTUAL_HOST: https://${VIRTUAL_HOST:?Host required} -> :3000
