@@ -40,11 +40,6 @@ sudo -E docker volume create ${VHOST_D_VOLUME}
 sudo -E docker volume create ${HTML_VOLUME}
 sudo -E docker volume create ${POSTGRES_VOLUME}
 
-sudo -E docker-compose -f docker-compose.proxy.dev.yml up -d
-sudo -E docker-compose -f docker-compose.hasura.yml up -d
-sudo -E docker-compose -f docker-compose.keycloak.yml up -d
-sudo -E docker-compose -f docker-compose.dev.yml up --build -d
-
 cd certs
 rm localhost*
 bash makecert.sh --dn-c "US" --dn-st "TX" --dn-l "Houston" \
@@ -57,6 +52,15 @@ certutil -d sql:$HOME/.pki/nssdb -A -t "TCu,Cuw,Tuw" -n localhost \
 
 certutil -d sql:$(dirname $(find  ~/.mozilla* -name "cert9.db")) -A -t "TCu,Cuw,Tuw" -n localhost \
 -i localhost_https_ca.pem
+
+sudo -E docker-compose -f docker-compose.proxy.dev.yml up -d
+sudo -E docker-compose -f docker-compose.hasura.yml up -d
+sudo -E docker-compose -f docker-compose.keycloak.yml up -d
+sudo -E docker-compose -f docker-compose.dev.yml up --build -d
+
+# Cleanup
+certutil -d sql:$HOME/.pki/nssdb -D -n localhost
+certutil -d sql:$(dirname $(find  ~/.mozilla* -name "cert9.db")) -D -n localhost
 ```
 
 Open [https://localhost/](https://localhost/)
