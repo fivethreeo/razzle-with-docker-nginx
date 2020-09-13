@@ -59,6 +59,8 @@ certutil -d sql:$(dirname $(find  ~/.mozilla* -name "cert9.db")) -A -t "TCu,Cuw,
 -i localhost_https_ca.pem
 ```
 
+Open [https://localhost/](https://localhost/)
+
 ## To run in dev with https on dev.example.com using letsencrypt:
 
 ```bash
