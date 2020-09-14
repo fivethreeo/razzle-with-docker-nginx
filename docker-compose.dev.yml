@@ -7,6 +7,9 @@ services:
       target: nginx_development
       context: .
       dockerfile: Dockerfile
+      args:
+        BUILD_TYPE: advanced # advanced or basic
+        # basic is without hasura and keycloak
 
     depends_on:
       - razzle

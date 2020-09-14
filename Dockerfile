@@ -67,6 +67,8 @@ CMD ["yarn", "start:prod"]
 
 FROM nginx:stable-alpine as nginx_development
 
+ARG BUILD_TYPE=advanced
+
 ENV HASURA_UPSTREAM_HOST="hasura"
 ENV KEYCLOAK_UPSTREAM_HOST="keycloak"
 ENV RAZZLE_UPSTREAM_HOST="razzle"
@@ -76,7 +78,7 @@ ENV RAZZLE_UPSTREAM_PORT="3001"
 
 COPY nginx/nginx_entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
-COPY nginx/default_dev.conf.template /etc/nginx/conf.d/default.template
+COPY nginx/${BUILD_TYPE}/default_dev.conf.template /etc/nginx/conf.d/default.template
 
 RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
 
@@ -85,6 +87,8 @@ EXPOSE 80
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 FROM nginx:stable-alpine as nginx_production
+
+ARG BUILD_TYPE=advanced
 
 ENV HASURA_UPSTREAM_HOST="hasura"
 ENV KEYCLOAK_UPSTREAM_HOST="keycloak"
@@ -95,7 +99,7 @@ ENV RAZZLE_UPSTREAM_PORT="3000"
 
 COPY nginx/nginx_entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
-COPY nginx/default.conf.template /etc/nginx/conf.d/default.template
+COPY nginx/${BUILD_TYPE}/default.conf.template /etc/nginx/conf.d/default.template
 
 COPY --from=razzle_production /code/build/public/ /usr/share/nginx/html/
 
