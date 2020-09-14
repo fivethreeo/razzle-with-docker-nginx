@@ -1,6 +1,13 @@
-import './App.css';
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 
-import React from 'react';
-const App = () => <div>Welcome to Razzle.</div>;
+import Home from './Home'
+import './App.css'
 
-export default App;
+const App = () => (
+  <Switch>
+    <Route exact path="/" component={Home} />
+  </Switch>
+)
+
+export default App

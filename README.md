@@ -55,7 +55,7 @@ certutil -d sql:$(dirname $(find  ~/.mozilla* -name "cert9.db")) -A -t "TCu,Cuw,
 
 sudo -E docker-compose -f docker-compose.proxy.dev.yml up -d
 sudo -E docker-compose -f docker-compose.hasura.yml up -d
-sudo -E docker-compose -f docker-compose.keycloak.yml up -d
+sudo -E docker-compose -f docker-compose.keycloak.yml up --build -d
 sudo -E docker-compose -f docker-compose.dev.yml up --build -d
 
 # Cleanup
@@ -94,7 +94,7 @@ sudo -E docker volume create ${POSTGRES_VOLUME}
 
 sudo -E docker-compose -f docker-compose.proxy.dev.yml up -d
 sudo -E docker-compose -f docker-compose.hasura.yml up -d
-sudo -E docker-compose -f docker-compose.keycloak.yml up -d
+sudo -E docker-compose -f docker-compose.keycloak.yml up --build -d
 sudo -E docker-compose -f docker-compose.dev.yml up --build -d
 
 sudo docker network inspect \
@@ -131,7 +131,7 @@ sudo -E docker volume create ${POSTGRES_VOLUME}
 
 sudo -E docker-compose -f docker-compose.proxy.yml up -d
 sudo -E docker-compose -f docker-compose.hasura.yml up -d
-sudo -E docker-compose -f docker-compose.keycloak.yml up -d
+sudo -E docker-compose -f docker-compose.keycloak.yml up --build -d
 sudo -E docker-compose -f docker-compose.yml up --build -d
 ```
 

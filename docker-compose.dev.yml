@@ -28,7 +28,10 @@ services:
       PUBLIC_PORT: ${PUBLIC_PORT:-}
       PUBLIC_SCHEME: ${PUBLIC_SCHEME:-https}
       RAZZLE_DEV: "true"
-
+      KEYCLOAK_CLIENT_URL: ${PUBLIC_SCHEME:-https}://${VIRTUAL_HOST:-localhost}/auth
+      KEYCLOAK_SERVER_URL: http://keycloak/auth
+      KEYCLOAK_REALM: razzle
+      KEYCLOAK_CLIENT_ID: "49d50856-cf1d-4e1f-9eb8-e9386c5c6b16"
     volumes:
       - ./razzle/src:/code/src
       - ./razzle/public:/code/public

@@ -1,0 +1,11 @@
+{
+    "authenticators": [],
+    "policies": [],
+    "mappers": [
+        {
+            "name": "Hasura Mapper",
+            "fileName": "hasura-mapper.js",
+            "description": "Hasura Mapper from a JS file"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+
+FROM quay.io/keycloak/keycloak:latest as hasura_keycloak
+
+USER root
+
+RUN microdnf update -y && microdnf install -y zip && microdnf clean all
+
+COPY keycloak/ /opt/jboss/keycloak/standalone/deployments/hasura_mapper/
+
+RUN (cd /opt/jboss/keycloak/standalone/deployments/hasura_mapper && zip -r ../hasura_mapper.jar ./* && cd .. && rm -rf hasura_mapper)
+
+CMD ["-Dkeycloak.profile.feature.upload_scripts=enabled", "-b", "0.0.0.0"]

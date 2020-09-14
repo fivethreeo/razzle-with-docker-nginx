@@ -2,14 +2,18 @@ version: "3.7"
 
 services:
   keycloak:
-      image: quay.io/keycloak/keycloak:latest
-      environment:
-        DB_VENDOR: POSTGRES
-        DB_ADDR: postgres
-        DB_DATABASE: postgres
-        DB_USER: postgres
-        DB_SCHEMA: public
-        DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD required}
-        KEYCLOAK_USER: ${KEYCLOAK_USER:?KEYCLOAK_USER required}
-        KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD:?KEYCLOAK_PASSWORD required}
-        PROXY_ADDRESS_FORWARDING: "true"
+    build:
+      target: hasura_keycloak
+      context: .
+      dockerfile: Dockerfile.keycloak
+
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: postgres
+      DB_USER: postgres
+      DB_SCHEMA: public
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD required}
+      KEYCLOAK_USER: ${KEYCLOAK_USER:?KEYCLOAK_USER required}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD:?KEYCLOAK_PASSWORD required}
+      PROXY_ADDRESS_FORWARDING: "true"
