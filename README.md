@@ -64,6 +64,7 @@ certutil -d sql:$(dirname $(find  ~/.mozilla* -name "cert9.db")) -D -n localhost
 ```
 
 Open [https://localhost/](https://localhost/)
+Open [https://localhost/auth](https://localhost/auth) and create a razzle realm with a razzle client with Implicit Flow Enabled 
 
 ## To run in dev with https on dev.example.com using letsencrypt:
 
