@@ -31,7 +31,7 @@ services:
       KEYCLOAK_CLIENT_URL: ${PUBLIC_SCHEME:-https}://${VIRTUAL_HOST:-localhost}/auth
       KEYCLOAK_SERVER_URL: http://keycloak/auth
       KEYCLOAK_REALM: razzle
-      KEYCLOAK_CLIENT_ID: "49d50856-cf1d-4e1f-9eb8-e9386c5c6b16"
+      KEYCLOAK_CLIENT_ID: "23706968-781c-4c97-8b7f-1679fea2ebab"
     volumes:
       - ./razzle/src:/code/src
       - ./razzle/public:/code/public
